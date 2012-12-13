@@ -1,54 +1,70 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Get out of VI's compatible mode..
+" Get out of VI's compatible mode..
 set nocompatible
 
-set ruler
-set number
+set autoread
+set autowrite
+
 set nobackup
-set backspace=eol,start,indent
+set nowritebackup
+
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
+set expandtab
+set smarttab
+
+set backspace=eol,start,indent
+
 set incsearch
 set hlsearch
 set ignorecase
 
-"Always hide the statusline
+" The current buffer can be put to the background without 
+" writing to disk
+set hidden
+
+set nowrap
+set textwidth=0
+set wildmode=longest,list
+
+set smartindent
+set autoindent
+set cindent
+set cinoptions=:s,ps,ts,cs
+set cinwords=if,else,while,do,for,switch,case
+
+syntax on
+filetype plugin indent on
+
+set ruler
+set number
+
+" Clipboard
+set clipboard+=unnamed
+
+" for new-omni-completion
+set completeopt=longest,menu
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Status Line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Always hide the statusline
 set laststatus=2
-"Format the statusline
+" Format the statusline
 set statusline=
 set statusline+=%2*%-3.3n%0*\                " buffer number
 set statusline+=%f\                          " file name
 set statusline+=%h%1*%m%r%w%0*               " flags
 set statusline+=\[%{strlen(&ft)?&ft:'none'}, " filetype
-set statusline+=%{&fileencoding},                " encoding
+set statusline+=%{&fileencoding},            " encoding
 set statusline+=%{&encoding},                " encoding
 set statusline+=%{&fileformat}]              " file format
 set statusline+=%=                           " right align
 set statusline+=%2*0x%-8B\                   " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" For C/C++
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set smartindent
-set autoindent
-set cindent
-
-syntax enable
-syntax on
-
-" pathogen plugin
-call pathogen#runtime_append_all_bundles()
-
-filetype on
-filetype plugin on 
-filetype indent on
-
-" for new-omni-completion
-set completeopt=longest,menu
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Chinese
@@ -108,11 +124,35 @@ nmap <silent> <leader>qa :qa<cr>
 
 imap jj <ESC>
 
-" build tags database for C++
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " tag previous and next
 nmap tj :tn<cr>
 nmap tk :tp<cr>
 
 " grep find
 nnoremap <silent> <F3> :Grep<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle
+" :BundleInstall
+" vim +BundleInstall +qall
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set runtimepath+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'The-NERD-tree'
+
+Bundle "git.zip"
+Bundle "fugitive.vim"
+
+Bundle "ragtag.vim"
+Bundle "surround.vim"
+
+Bundle "tComment"
+
+Bundle "https://github.com/majutsushi/tagbar.git"
+Bundle "https://github.com/xolox/vim-easytags.git"
+
+Bundle "a.vim"
+Bundle "c.vim"
+
